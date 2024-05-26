@@ -1,35 +1,33 @@
 import { useState } from 'react';
-import Header from './components/Header';
-import UserInput from './components/UserInput'
-import Results from './components/Results';
 
+import Header from './components/Header.jsx';
+import UserInput from './components/UserInput.jsx';
+import Results from './components/Results.jsx';
 
 function App() {
   const [userInput, setUserInput] = useState({
-    initialInvestment: 1000,
+    initialInvestment: 10000,
     annualInvestment: 1200,
     expectedReturn: 6,
-    duration: 12
-  })
+    duration: 10,
+  });
 
-  const inputIsValid = userInput.duration > 0;
-
-  function changeHandler(inputIdetifier, newValue) {
-    setUserInput(preValues => {
+  function handleChange(inputIdentifier, newValue) {
+    setUserInput((prevUserInput) => {
       return {
-        ...preValues,
-        [inputIdetifier]: +newValue
-      }
-    })
+        ...prevUserInput,
+        [inputIdentifier]: +newValue,
+      };
+    });
   }
-  return (<>
-    <Header />
-    <UserInput userInput={userInput} onChange={changeHandler} />
-    {inputIsValid ? <Results userInput={userInput} /> : <p className='center'>Please enter Duration is greater than 0</p>}
 
-  </>
-
-  )
+  return (
+    <>
+      <Header />
+      <UserInput userInput={userInput} onChange={handleChange} />
+      <Results input={userInput} />
+    </>
+  );
 }
 
-export default App
+export default App;
